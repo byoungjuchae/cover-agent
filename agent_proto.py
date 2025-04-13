@@ -9,6 +9,7 @@ from langchain_community.document_loaders import PyPDFLoader, WebBaseLoader
 from langchain_community.vectorstores import FAISS
 from langgraph.graph import StateGraph
 from pymilvus import MilvusClient
+from langchain_mcp_adapters import FastMCP
 import requests
 from dotenv import load_dotenv
 import os
@@ -28,9 +29,6 @@ vectorstore = FAISS.from_documents(doc,embedding=embedding).as_retriever()
 llm = ChatOllama(model='llama3.2:latest')
 
 
-
-
-<<<<<<< HEAD
 class State(BaseModel):
     
     JD_job : str
@@ -96,16 +94,22 @@ def write_cover(state:State):
     and you write the cover letter to apply the Job of the JD.
     
     Here is the JD analysis:
-    {JD_anaylsis}
+    {JD_analysis}
     
     Here is the resume analysis:
     {resume_analysis}
     
     """
+    
     prompt = ChatPromptTemplate.from_template(promp_text)
     chain = {"JD_analysis": RunnablePassthrough(), "resume_analysis":RunnablePassthrough()} | prompt | llm | StrOutputParser()
-    response = chain.invoke({"JD_analysis":{},"resume_analysis":{}})
+    response = chain.invoke({"JD_analysis":state.JD_anaylsis,"resume_analysis":state.resume_analysis})
     
+def rewrite_node(state:State):
+    prompt_text = """
+    
+    
+    """
     
 def start_node(state:State):
     
@@ -119,7 +123,6 @@ graph.add_node("analyze_JD",analyze_JD)
 graph.add_node("write_cover",write_cover)
 graph.add_node("start_node",start_node)
 
-<<<<<<< HEAD
 graph.set_entry_point("start_node")
 
 graph.add_edge("start_node","analyze_resume")
@@ -129,3 +132,5 @@ graph.add_edge("analyze_JD","write_cover")
 
 grap = graph.compile()
       
+
+write_cover(State)
