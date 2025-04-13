@@ -129,11 +129,3 @@ graph.add_edge("analyze_JD","write_cover")
 
 grap = graph.compile()
       
-=======
-# Here is the resume:
-# {resume}
-# """
-# prompt = ChatPromptTemplate.from_template(prompt_text)
-# chain = {"resume":vectorstore} | prompt | llm | StrOutputParser()
-# print(chain.invoke("Analyze the JD"))
->>>>>>> 8abe9a14d6012e3bf0ee0f7b98dd639030da38df
