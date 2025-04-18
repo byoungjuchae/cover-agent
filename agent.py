@@ -62,7 +62,7 @@ async def analyze_pdf(state: State):
     
     chain = {"resume":RunnablePassthrough()} | prompt | llm | StrOutputParser()
     
-    response = await chain.ainvoke({"resume":vectorstore})
+    response = await chain.ainvoke({"resume":state.input_pdf})
     state.response_pdf = response
     return state
 
@@ -116,9 +116,8 @@ graph_state.add_node("writer",writer)
 graph_state.add_node("start",start)
 
 graph_state.add_edge("start","analyze_JD")
-#graph_state.add_edge("start","analyze_pdf")
-graph_state.add_edge("analyze_JD","writer")
-#graph_state.add_edge("analyze_pdf","writer")
+graph_state.add_edge("analyze_JD","analyze_pdf")
+graph_state.add_edge("analyze_pdf","writer")
 
 graph_state.set_entry_point("start")
 
