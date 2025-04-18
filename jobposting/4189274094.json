@@ -1,0 +1,14 @@
+{
+    "jobPostingUrl": "https://www.linkedin.com/ad-library/job/detail/4189274094",
+    "restrictionReason": "This information is only available for restricted jobs.",
+    "jobDetails": {
+        "organizationName": "SUPCON",
+        "jobLocation": "Singapore, Singapore",
+        "jobTitle": "Application Engineer",
+        "payerName": "SUPCON",
+        "jobDescription": "Overview:We provide automation and digitalization technologies to the world's leadingprocess industries, serving over 30,000 large industrial enterprises globally with ateam of 5,000+ employees. Our R&amp;D teams focus on Process Industry AI (AIO) and modern industrial software applications, with work locations in Singapore, China Hangzhou, and Japan.\nJob Responsibilities:Build stunning industrial apps with modern software tech, making legacy industrial software obsolete.\nPreferred Qualities: Passion towards software engineering—constantly following the latest trends on Hacker News, and your GitHub heatmap is deep green. No prior knowledge of industrial automation is required.\nQualifications:A portfolio you’re proud of—GitHub, Figma, or a personal site. Deep expertise in cutting-edge software—event-driven architecture, Apache Iceberg, Next.js, or similar. Full-stack skills—You can set up VMs, deploy containers with Helm, manage Kubernetes, store to S3, and CRUD + render it all in a browser.",
+        "organizationUrl": "https://www.linkedin.com/company/1753553",
+        "jobListTimeInMilliseconds": 1744786127000
+    },
+    "isRestricted": false
+}

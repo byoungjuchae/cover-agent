@@ -1,0 +1,371 @@
+{
+    "jobPostingUrl": "https://www.linkedin.com/ad-library/job/detail/4184160483",
+    "restrictionReason": "This information is only available for restricted jobs.",
+    "jobDetails": {
+        "jobStatistics": {
+            "impressionsPerCountry": [
+                {
+                    "country": "urn:li:country:MA",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:IN",
+                    "impressions": 0.81
+                },
+                {
+                    "country": "urn:li:country:ID",
+                    "impressions": 0.08
+                },
+                {
+                    "country": "urn:li:country:EG",
+                    "impressions": 0.41
+                },
+                {
+                    "country": "urn:li:country:BG",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:SG",
+                    "impressions": 0.04
+                },
+                {
+                    "country": "urn:li:country:TH",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:AT",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:GQ",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:TR",
+                    "impressions": 0.6
+                },
+                {
+                    "country": "urn:li:country:MY",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:RU",
+                    "impressions": 0.04
+                },
+                {
+                    "country": "urn:li:country:VE",
+                    "impressions": 0.13
+                },
+                {
+                    "country": "urn:li:country:TN",
+                    "impressions": 0.23
+                },
+                {
+                    "country": "urn:li:country:PH",
+                    "impressions": 0.45
+                },
+                {
+                    "country": "urn:li:country:JO",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:ES",
+                    "impressions": 0.45
+                },
+                {
+                    "country": "urn:li:country:AZ",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:PK",
+                    "impressions": 0.13
+                },
+                {
+                    "country": "urn:li:country:NZ",
+                    "impressions": 0.12
+                },
+                {
+                    "country": "urn:li:country:US",
+                    "impressions": 0.27
+                },
+                {
+                    "country": "urn:li:country:SI",
+                    "impressions": 0.04
+                },
+                {
+                    "country": "urn:li:country:RO",
+                    "impressions": 0.21
+                },
+                {
+                    "country": "urn:li:country:CI",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:IE",
+                    "impressions": 0.13
+                },
+                {
+                    "country": "urn:li:country:IR",
+                    "impressions": 0.24
+                },
+                {
+                    "country": "urn:li:country:IQ",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:BE",
+                    "impressions": 0.44
+                },
+                {
+                    "country": "urn:li:country:AU",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:SA",
+                    "impressions": 0.11
+                },
+                {
+                    "country": "urn:li:country:ZW",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:HU",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:GT",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:CL",
+                    "impressions": 0.04
+                },
+                {
+                    "country": "urn:li:country:FI",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:NO",
+                    "impressions": 0.12
+                },
+                {
+                    "country": "urn:li:country:PL",
+                    "impressions": 0.18
+                },
+                {
+                    "country": "urn:li:country:CH",
+                    "impressions": 1.29
+                },
+                {
+                    "country": "urn:li:country:CY",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:IS",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:SE",
+                    "impressions": 0.44
+                },
+                {
+                    "country": "urn:li:country:AE",
+                    "impressions": 0.21
+                },
+                {
+                    "country": "urn:li:country:KZ",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:LB",
+                    "impressions": 0.06
+                },
+                {
+                    "country": "urn:li:country:AR",
+                    "impressions": 0.49
+                },
+                {
+                    "country": "urn:li:country:HR",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:RS",
+                    "impressions": 0.24
+                },
+                {
+                    "country": "urn:li:country:BA",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:GB",
+                    "impressions": 0.97
+                },
+                {
+                    "country": "urn:li:country:FR",
+                    "impressions": 0.82
+                },
+                {
+                    "country": "urn:li:country:UZ",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:CO",
+                    "impressions": 0.11
+                },
+                {
+                    "country": "urn:li:country:MT",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:PT",
+                    "impressions": 0.13
+                },
+                {
+                    "country": "urn:li:country:KR",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:UA",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:BR",
+                    "impressions": 0.26
+                },
+                {
+                    "country": "urn:li:country:YE",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:HN",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:IT",
+                    "impressions": 86.94
+                },
+                {
+                    "country": "urn:li:country:CZ",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:GR",
+                    "impressions": 0.2
+                },
+                {
+                    "country": "urn:li:country:ZA",
+                    "impressions": 0.08
+                },
+                {
+                    "country": "urn:li:country:BY",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:OM",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:MX",
+                    "impressions": 0.11
+                },
+                {
+                    "country": "urn:li:country:MK",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:DZ",
+                    "impressions": 0.16
+                },
+                {
+                    "country": "urn:li:country:CU",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:DK",
+                    "impressions": 0.03
+                },
+                {
+                    "country": "urn:li:country:VI",
+                    "impressions": 0.01
+                },
+                {
+                    "country": "urn:li:country:NL",
+                    "impressions": 0.69
+                },
+                {
+                    "country": "urn:li:country:CA",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:JP",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:CN",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:AL",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:ET",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:SN",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:PE",
+                    "impressions": 0.03
+                },
+                {
+                    "country": "urn:li:country:CR",
+                    "impressions": 0.04
+                },
+                {
+                    "country": "urn:li:country:EC",
+                    "impressions": 0.03
+                },
+                {
+                    "country": "urn:li:country:DE",
+                    "impressions": 0.58
+                }
+            ],
+            "totalImpressions": {
+                "start": 10000,
+                "end": 50000
+            }
+        },
+        "organizationName": "Etjca - Agenzia per il lavoro",
+        "jobLocation": "Como, Lombardia, Italia",
+        "jobTitle": "Ingegnere chimico di processo",
+        "payerName": "etjca-s-p-a-",
+        "jobDescription": "Il nostro cliente è una storica realtà aziendale del territorio della Provincia di Como, operante nel settore chimico-farmaceutico e specializzata nella produzione di principi attivi. Per supportare le attività del Responsabile di Produzione e con lo scopo di strutturarsi verticalmente nell’ottimizzazione dei processi ci ha incaricati della selezione di un/una\nJUNIOR CHEMICAL ENGINEER\nDescrizione e Caratteristiche della Posizione:La persona selezionata sarà inserita all’interno dell’organizzazione di stabilimento, si relazionerà direttamente con l’ufficio tecnico e si occuperà della progettazione di base di impianti e processi produttivi curandone gli aspetti documentali, le soluzioni in termini di sicurezza e la progettazione di modifiche e/o di nuove installazioni.\nRuolo e Responsabilità:Dimensionare apparecchiature e macchine, elaborando le relative specifiche tecnicheEffettuare bilanci di massa ed energiaCurare direttamente o con l’ausilio di società di ingegneria esterne, la predisposizione della documentazione tecnica di processo (Process flow diagram, PI&amp;D, lay out)Elaborare ed aggiornare, in collaborazione con l’RSPP di stabilimento, la process safety degli impianti, interfacciandosi, ove necessario, con consulenti esterniContribuire alla progettazione di dettaglio in fase di realizzazione di nuovi impianti o di modifica degli esistenti\nRiporto gerarchico: Responsabile Ufficio TecnicoRelazioni di funzione:Interne: Ufficio Tecnico, Ufficio Qualità, RSPP, ProduzioneEsterne: società di ingegneria, fornitura impianti\nRequisiti richiesti per partecipare alle Selezioni:Laurea magistrale in Ingegneria chimicaPreferibile esperienza di 2+ anni come process engineer nell’ambito di società di ingegneria oppure presso i servizi tecnici di stabilimenti chimici, farmaceutici, nutraceutici, alimentariOttima conoscenza del processo produttivo in ambito chimico e degli impianti/macchinari utilizzatiBuona conoscenza delle normative di riferimento, sia in tema di sicurezza sia in tema di qualità e GMPOttima conoscenza del pacchetto office e della lingua inglese\nSoft skillsPrecisione, attenzione ai dettagli, rispetto delle procedureOttime doti relazionali e comunicative, buona attitudine al lavoro in teamOttime capacità organizzative e di gestione delle priorità\nSede di lavoro: Zona ComoOrario di lavoro: full time 40 ore settimanali da lunedì al venerdì con orario dalle 8,30 alle 17,30.Tipologia contrattuale: Contratto di assunzione a tempo indeterminato CCNL chimico-farmaceutico\nPacchetto retributivo a budget: RAL compresa fra 30.000€ e 55.000€ da definire in base a esperienza ed effettive competenze della persona selezionataBenefit: Ticket Restaurant da 8€/die, Premio produzione, Welfare aziendale come previsto da CCNL di riferimento con copertura sanitaria integrativa.\nL'offerta è rivolta a candidati ambosessi nel rispetto del D.lgs 198/2006 e ss.mm.ii. e dei Decreti legislativi n. 215 e 216 del 2003 sulla parità di trattamento. Si invitano i candidati a prendere visione dell'informativa privacy https://www.etjca.it/informativa-per-candidati-interni-societa-etjca (art.13 e 14, Reg EU 679/2016) pubblicata sul sito www.etjca.it.\nEtjca S.p.A. (Aut. Min. Prot. N. 1309-SG del 23/02/2005)",
+        "organizationUrl": "https://www.linkedin.com/company/2719850",
+        "jobListTimeInMilliseconds": 1744788031000,
+        "jobTargeting": [
+            {
+                "includedSegments": [
+                    "Not applicable"
+                ],
+                "facetName": "Skill",
+                "excludedSegments": [],
+                "isExcluded": false,
+                "isIncluded": true
+            },
+            {
+                "includedSegments": [
+                    "Como",
+                    "Italy"
+                ],
+                "facetName": "Location",
+                "excludedSegments": [],
+                "isExcluded": false,
+                "isIncluded": true
+            }
+        ]
+    },
+    "isRestricted": false
+}
