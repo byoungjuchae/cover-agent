@@ -1,6 +1,7 @@
 from langgraph.graph import StateGraph, END
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
+from langgraph.checkpoint.memory import InMemorySaver
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_community.embeddings import HuggingFaceEmbeddings
@@ -34,20 +35,17 @@ class State(BaseModel):
     response_pdf : str
     response_JD : str
     result : str
+    score : str
     
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=GEMINI_KEY)
+docs = PyPDFLoader('./pdf/CV.pdf').load()
 
 # embedding = HuggingFaceEmbeddings(model_name='sentence-transformers/all-mpnet-base-v2')
 with open('./jobposting/4192684412.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
+docs = [doc.page_content for doc in docs]
 
-text_split = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=250,chunk_overlap=0)
-# doc = text_split.split_text(json_data=data,covert_lists=True) 
-# document = [Document(
-#     page_content = data['jobDetails']['jobDescription']
-# )]
-# vectorstore = FAISS.from_documents(document,embedding=embedding).as_retriever()
 
 ####### analyze the pdf 
 
@@ -62,7 +60,7 @@ async def analyze_pdf(state: State):
     
     chain = {"resume":RunnablePassthrough()} | prompt | llm | StrOutputParser()
     
-    response = await chain.ainvoke({"resume":state.input_pdf})
+    response = await chain.ainvoke({"resume":docs[0]})
     state.response_pdf = response
     return state
 
@@ -104,6 +102,53 @@ async def writer(state:State):
 
     state.result =response
     return state
+
+async def writer_grade(state:State):
+
+    prompt_text = """ As an outstanding recruiter, please review the draft of my cover letter and evaluate how well it aligns with the job description and my resume. 
+    If there are any parts that do not match the JD or resume, feel free to remove them. Please focus on emphasizing my strengths and based on the resume's fact.
+
+    Here is the cover letter:
+    {cover_letter}
+
+    Here is the job description:
+    {job_description}
+
+
+    Here is the resume:
+    {resume}
+    """
+    prompt = ChatPromptTemplate.from_template(prompt_text)
+
+    chain = {'cover_letter':RunnablePassthrough(),'job_description':RunnablePassthrough(),'resume':RunnablePassthrough()} | prompt | llm | StrOutputParser()
+
+    response = await chain.ainvoke({"cover_letter":state.response_JD,"resume":state.response_pdf,"cover_letter":state.result})
+    state.result = response
+    return state
+
+async def checker(state:State):
+
+    prompt_text = """ you are a good helper to check the cover letter. What is the score of this cover letter among the 10?
+
+    You only answer the number. 
+
+    Here is the cover letter
+    {cover_letter} 
+    """
+    prompt = ChatPromptTemplate.from_template(prompt_text)
+
+    chain = {'cover_letter':RunnablePassthrough()} | prompt | llm | StrOutputParser()
+    response = await chain.ainvoke({"cover_letter":state.result})
+    state.score = response
+    return state
+
+async def should_end(state:State):
+  
+    if int(state.score) < 7:
+        return "write"
+
+    else:
+        return END
 async def start(state: State):
 
     print("start")
@@ -112,16 +157,30 @@ graph_state = StateGraph(State)
 
 graph_state.add_node("analyze_JD",analyze_JD)
 graph_state.add_node("analyze_pdf",analyze_pdf)
+graph_state.add_node("writer_grade",writer_grade)
+graph_state.add_node("checker",checker)
 graph_state.add_node("writer",writer)
 graph_state.add_node("start",start)
 
 graph_state.add_edge("start","analyze_JD")
 graph_state.add_edge("analyze_JD","analyze_pdf")
 graph_state.add_edge("analyze_pdf","writer")
+graph_state.add_edge("writer","writer_grade")
+graph_state.add_edge("writer_grade","checker")
+graph_state.add_conditional_edges(
+    "checker",
+    path=should_end,
+    path_map={
+        "write": "writer_grade",
+        END: END
+    }
 
+)
+checkpointer = InMemorySaver()
 graph_state.set_entry_point("start")
 
-graph = graph_state.compile()
+graph = graph_state.compile(checkpointer=checkpointer)
+config = {"configurable":{"thread_id":"4"}}
 
 
 async def token_generator():
@@ -131,9 +190,10 @@ async def token_generator():
     "input_JD": data['jobDetails']['jobDescription'],
     "response_pdf": "",
     "response_JD": "",
-    "result": ""
+    "result": "",
+    "score": ""
     }
-    async for chunk in graph.astream(initial_state):
+    async for chunk in graph.astream(initial_state,config):
        
         yield chunk
 
