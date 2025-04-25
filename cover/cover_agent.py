@@ -10,7 +10,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 import os
-
+import asyncio
 
 load_dotenv()
 class State(BaseModel):
@@ -29,14 +29,10 @@ llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=GEMINI_KEY
 docs = PyPDFLoader('./pdf/CV.pdf').load()
 
 
-# embedding = HuggingFaceEmbeddings(model_name='sentence-transformers/all-mpnet-base-v2')
-with open('./jobposting/4192684412.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
-
-docs = [doc.page_content for doc in docs]
+class company_jd(BaseModel):
+    job_description : str = Field(default='',description='this is the job description about the company.')
 
 
-####### analyze the pdf 
 
 async def analyze_pdf(state: State):
     prompt_text = """ You are a applicant. 
@@ -171,19 +167,14 @@ graph = graph_state.compile()
 
 
 @tool
-async def coverwriter():
+async def coverwriter(job_description:str):
     """if you want to help writing a cover letter, use this tool"""
 
-    initial_state = {
-    "text": "",
-    "input_pdf": "",
-    "input_JD": data['jobDetails']['jobDescription'],
-    "response_pdf": "",
-    "response_JD": "",
-    "result": "",
-    "score": ""
-    }
+    state = State()
 
-    response = await graph.ainvoke(initial_state)
+    state.input_JD = job_description
+  
+
+    response = await graph.ainvoke(state)
     
-    return response.result
+    return response['result']

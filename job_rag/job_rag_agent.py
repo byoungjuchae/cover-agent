@@ -17,8 +17,6 @@ from uuid import uuid4
 
 
 
-
-
 def job_post():
     jobpost = glob(os.path.join("./jobposting",'*.json'))
     documented = []
@@ -44,6 +42,7 @@ def job_post():
     )
     uuids = [str(uuid4()) for _ in range(len(documented))]
     vectorstore.add_documents(documents=documented, ids=uuids)
+    return vectorstore
 
 class Company(BaseModel):
     company_name: str
@@ -52,6 +51,7 @@ class Company(BaseModel):
 @tool(args_schema=Company)
 async def RAG(company_name:str):
     """If you want to find the company and jd, use this tool"""
+    vectorstore = job_post()
     retriever = vectorstore.as_retriever()
     response = retriever.get_relevant_documents(company_name)
-    return response
+    return response[0].page_content
