@@ -14,8 +14,9 @@ from uuid import uuid4
 
 
 
+def job_throw():
 
-
+    
 
 def job_post():
     jobpost = glob(os.path.join("./jobposting",'*.json'))

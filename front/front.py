@@ -16,8 +16,7 @@ st.sidebar.header("📎 이력서 업로드")
 uploaded_file = st.sidebar.file_uploader("PDF 형식 이력서 업로드", type=["pdf"])
 
 if uploaded_file is not None:
-    st.sidebar.success("이력서 업로드 완료 ✅")
-    # PDF 파일에서 텍스트 추출
+    st.write("파일 이름:", uploaded_file.name)
     reader = PyPDF2.PdfReader(uploaded_file)
     extracted_text = ""
     for page in reader.pages:
@@ -25,6 +24,15 @@ if uploaded_file is not None:
 
     st.sidebar.subheader("📃 이력서 요약")
     st.sidebar.text_area("추출된 내용 (요약)", extracted_text[:1000], height=300)
+
+    files = {"pdf_file": (uploaded_file.name, uploaded_file, "application/pdf")}
+    response = requests.post("http://localhost:8000/pdf", files=files)
+
+    if response.ok:
+        st.success("PDF 전송 성공!")
+        st.json(response.json())
+    else:
+        st.error("서버 에러")
 
 # 응답 처리 함수
 def handle_body(body):
