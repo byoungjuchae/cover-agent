@@ -9,12 +9,9 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
-from mcp.server.fastmcp import FastMCP
 import os
 import asyncio
 
-
-mcp = FastMCP("coverwriter")
 load_dotenv()
 class State(BaseModel):
     
@@ -169,7 +166,7 @@ graph_state.set_entry_point("analyze_JD")
 graph = graph_state.compile()
 
 
-@mcp.tool()
+@tool
 async def coverwriter(job_description:str):
     """if you want to help writing a cover letter, use this tool"""
 
@@ -181,8 +178,3 @@ async def coverwriter(job_description:str):
     response = await graph.ainvoke(state)
     
     return response['result']
-
-
-if __name__ =='__main__':
-    
-    mcp.run(transport="stdio")

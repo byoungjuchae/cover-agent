@@ -1,0 +1,249 @@
+{
+    "jobPostingUrl": "https://www.linkedin.com/ad-library/job/detail/4190218321",
+    "restrictionReason": "This information is only available for restricted jobs.",
+    "jobDetails": {
+        "jobStatistics": {
+            "impressionsPerCountry": [
+                {
+                    "country": "urn:li:country:VN",
+                    "impressions": 0.27
+                },
+                {
+                    "country": "urn:li:country:IN",
+                    "impressions": 0.8
+                },
+                {
+                    "country": "urn:li:country:EG",
+                    "impressions": 0.15
+                },
+                {
+                    "country": "urn:li:country:BG",
+                    "impressions": 82.8
+                },
+                {
+                    "country": "urn:li:country:BD",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:TR",
+                    "impressions": 1.27
+                },
+                {
+                    "country": "urn:li:country:RU",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:PH",
+                    "impressions": 0.45
+                },
+                {
+                    "country": "urn:li:country:ES",
+                    "impressions": 0.1
+                },
+                {
+                    "country": "urn:li:country:PK",
+                    "impressions": 0.17
+                },
+                {
+                    "country": "urn:li:country:US",
+                    "impressions": 6.19
+                },
+                {
+                    "country": "urn:li:country:RO",
+                    "impressions": 0.47
+                },
+                {
+                    "country": "urn:li:country:LU",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:IE",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:AU",
+                    "impressions": 0.07
+                },
+                {
+                    "country": "urn:li:country:MD",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:NO",
+                    "impressions": 0.07
+                },
+                {
+                    "country": "urn:li:country:EE",
+                    "impressions": 0.07
+                },
+                {
+                    "country": "urn:li:country:LT",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:PL",
+                    "impressions": 0.27
+                },
+                {
+                    "country": "urn:li:country:CH",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:NG",
+                    "impressions": 0.07
+                },
+                {
+                    "country": "urn:li:country:CY",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:SE",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:AE",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:LB",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:HR",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:RS",
+                    "impressions": 0.37
+                },
+                {
+                    "country": "urn:li:country:BA",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:GB",
+                    "impressions": 2.78
+                },
+                {
+                    "country": "urn:li:country:FR",
+                    "impressions": 0.3
+                },
+                {
+                    "country": "urn:li:country:CO",
+                    "impressions": 0.07
+                },
+                {
+                    "country": "urn:li:country:MT",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:PT",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:UA",
+                    "impressions": 0.22
+                },
+                {
+                    "country": "urn:li:country:BR",
+                    "impressions": 0.1
+                },
+                {
+                    "country": "urn:li:country:IT",
+                    "impressions": 0.12
+                },
+                {
+                    "country": "urn:li:country:GR",
+                    "impressions": 0.22
+                },
+                {
+                    "country": "urn:li:country:ZA",
+                    "impressions": 0.1
+                },
+                {
+                    "country": "urn:li:country:BY",
+                    "impressions": 0.3
+                },
+                {
+                    "country": "urn:li:country:LK",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:SK",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:MK",
+                    "impressions": 0.15
+                },
+                {
+                    "country": "urn:li:country:DZ",
+                    "impressions": 0.07
+                },
+                {
+                    "country": "urn:li:country:QA",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:DK",
+                    "impressions": 0.15
+                },
+                {
+                    "country": "urn:li:country:NL",
+                    "impressions": 0.37
+                },
+                {
+                    "country": "urn:li:country:CA",
+                    "impressions": 0.02
+                },
+                {
+                    "country": "urn:li:country:CN",
+                    "impressions": 0.07
+                },
+                {
+                    "country": "urn:li:country:XK",
+                    "impressions": 0.05
+                },
+                {
+                    "country": "urn:li:country:GE",
+                    "impressions": 0.15
+                },
+                {
+                    "country": "urn:li:country:DE",
+                    "impressions": 0.5
+                }
+            ],
+            "totalImpressions": {
+                "start": 1000,
+                "end": 5000
+            }
+        },
+        "organizationName": "Fourth",
+        "jobLocation": "Sofia, Sofia City, Bulgaria",
+        "jobTitle": "Principal .NET Software Developer",
+        "payerName": "Fourth",
+        "jobDescription": "Fourth is no ordinary product software company. We pride ourselves on unique cloud-based SaaS used by several million users which enables hotels, restaurants, bars, and pubs to improve efficiency and save money whether they're buying stock, scheduling staff, or creating recipes.The role: The Principal Software Developer will drive enterprise-level architectural decisions and ensure strategic alignment of software solutions in collaboration with the Enterprise Architecture team. They will innovate and implement scalable solutions, and adopt emerging technologies (e.g., cloud, AI/ML).The product and team: Fourth’s Demand Forecasting and Labour Productivity functionality enables predictability, profitability and customer satisfaction in over 25,000 hotels and restaurants in UK and USA. Labour Productivity team is in charge of the development and maintenance of a Scheduling eco system. Scheduling is set of solutions to help accurately deploy labour to enable to grow sales. It uses weather forecast and national events to forecast sales and labour demand.Your daily job will include: · Design, develop and unit test solutions of any size or complexity· Produce and champion quality, clean code and promote software engineering excellence within the team and company· Diagnose defects, and provide effective solutions· Provide development estimates, be a part of planning sessions· Understand and support the release management process· Frequent interaction with the architecture team to produce secure, robust, reliable and efficient solutions to meet the highest industry standards· Coach team membersRequirements:· 7+ years of experience with .Net Framework or C#· 7+ years of experience with SQL and MSSQL server· Experience with .Net Core· Experience with unit testing· Proficiency with GIT· Experience with Jenkins, Git, Azure Dev Ops· Octopus experience would be a benefitBenefits and Culture:· 25+ days off, as well as birthday day off and 4 charity days off per year· Flexible start and end of the working day and hybrid working mode, including a combination remote and in the office· Team-centric atmosphere· Encouraging healthy lifestyle and work-life balance including supplemental health insurance· New parents bonus scheme*Only short-listed candidates will be contacted.All personal data provided by you in your application will be processed by Fourth Bulgaria EOOD, UIC 203576042, solely for our recruitment purposes. If you do not provide your personal data, Fourth Bulgaria EOOD will not be able to review your application. Fourth Bulgaria will transfer your personal data only within its corporate group and to companies which provide recruitment support to Fourth Bulgaria. Fourth Bulgaria will ensure you can exercise your rights to access, correction and erasure of your personal data. More information on Fourth Bulgaria’s privacy policy for job candidates is available here and by applying you confirm that you have read it.",
+        "organizationUrl": "https://www.linkedin.com/company/42496",
+        "jobListTimeInMilliseconds": 1744782596000,
+        "jobTargeting": [
+            {
+                "includedSegments": [],
+                "facetName": "Skill",
+                "excludedSegments": [],
+                "isExcluded": false,
+                "isIncluded": false
+            },
+            {
+                "includedSegments": [
+                    "Sofia",
+                    "Bulgaria"
+                ],
+                "facetName": "Location",
+                "excludedSegments": [],
+                "isExcluded": false,
+                "isIncluded": true
+            }
+        ]
+    },
+    "isRestricted": false
+}

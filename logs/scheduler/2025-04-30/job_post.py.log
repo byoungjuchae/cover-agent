@@ -1,7 +1,0 @@
-[2025-04-30T12:05:26.707+0000] {processor.py:186} INFO - Started process (PID=81) to work on /opt/airflow/dags/job_post.py
-[2025-04-30T12:05:26.719+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_post.py for tasks to queue
-[2025-04-30T12:05:26.735+0000] {logging_mixin.py:190} INFO - [2025-04-30T12:05:26.734+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/job_post.py
-[2025-04-30T12:05:30.197+0000] {processor.py:925} INFO - DAG(s) 'scheduler_crawling' retrieved from /opt/airflow/dags/job_post.py
-[2025-04-30T12:05:30.860+0000] {logging_mixin.py:190} INFO - [2025-04-30T12:05:30.316+0000] {dag.py:3211} INFO - Sync 1 DAGs
-[2025-04-30T12:05:30.922+0000] {logging_mixin.py:190} INFO - [2025-04-30T12:05:30.922+0000] {dag.py:4138} INFO - Setting next_dagrun for scheduler_crawling to 2025-04-30 12:00:00+00:00, run_after=2025-04-30 12:15:00+00:00
-[2025-04-30T12:05:30.974+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_post.py took 4.304 seconds
