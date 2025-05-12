@@ -1,0 +1,4 @@
+[2025-05-05T07:24:55.682+0000] {processor.py:186} INFO - Started process (PID=85) to work on /home/airflow/.local/lib/python3.12/site-packages/airflow/example_dags/example_inlet_event_extra.py
+[2025-05-05T07:24:55.685+0000] {processor.py:914} INFO - Processing file /home/airflow/.local/lib/python3.12/site-packages/airflow/example_dags/example_inlet_event_extra.py for tasks to queue
+[2025-05-05T07:24:55.698+0000] {logging_mixin.py:190} INFO - [2025-05-05T07:24:55.698+0000] {dagbag.py:587} INFO - Filling up the DagBag from /home/airflow/.local/lib/python3.12/site-packages/airflow/example_dags/example_inlet_event_extra.py
+[2025-05-05T07:24:57.819+0000] {logging_mixin.py:190} INFO - [2025-05-05T07:24:57.818+0000] {process_utils.py:266} INFO - Waiting up to 5 seconds for processes to exit...

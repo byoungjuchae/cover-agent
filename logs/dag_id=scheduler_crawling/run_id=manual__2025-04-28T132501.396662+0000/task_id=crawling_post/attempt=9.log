@@ -1,0 +1,53 @@
+[2025-04-28T13:30:30.482+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-28T13:30:30.513+0000] {taskinstance.py:2603} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: scheduler_crawling.crawling_post manual__2025-04-28T13:25:01.396662+00:00 [queued]>
+[2025-04-28T13:30:30.533+0000] {taskinstance.py:2603} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: scheduler_crawling.crawling_post manual__2025-04-28T13:25:01.396662+00:00 [queued]>
+[2025-04-28T13:30:30.536+0000] {taskinstance.py:2856} INFO - Starting attempt 9 of 9
+[2025-04-28T13:30:30.563+0000] {taskinstance.py:2879} INFO - Executing <Task(_PythonDecoratedOperator): crawling_post> on 2025-04-28 13:25:01.396662+00:00
+[2025-04-28T13:30:30.578+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=1428) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-28T13:30:30.581+0000] {standard_task_runner.py:72} INFO - Started process 1430 to run task
+[2025-04-28T13:30:30.583+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'scheduler_crawling', 'crawling_post', 'manual__2025-04-28T13:25:01.396662+00:00', '--job-id', '15', '--raw', '--subdir', 'DAGS_FOLDER/job_post.py', '--cfg-path', '/tmp/tmp6odofi4q']
+[2025-04-28T13:30:30.586+0000] {standard_task_runner.py:105} INFO - Job 15: Subtask crawling_post
+[2025-04-28T13:30:30.689+0000] {task_command.py:467} INFO - Running <TaskInstance: scheduler_crawling.crawling_post manual__2025-04-28T13:25:01.396662+00:00 [running]> on host 74add6dc246e
+[2025-04-28T13:30:31.306+0000] {taskinstance.py:3122} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='scheduler_crawling' AIRFLOW_CTX_TASK_ID='crawling_post' AIRFLOW_CTX_EXECUTION_DATE='2025-04-28T13:25:01.396662+00:00' AIRFLOW_CTX_TRY_NUMBER='9' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-28T13:25:01.396662+00:00'
+[2025-04-28T13:30:31.310+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-28T13:30:31.313+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-28T13:30:31.315+0000] {logging_mixin.py:190} INFO - Current task name:crawling_post state:running start_date:2025-04-28 13:30:30.515077+00:00
+[2025-04-28T13:30:31.317+0000] {logging_mixin.py:190} INFO - Dag name:scheduler_crawling and current dag run status:running
+[2025-04-28T13:30:31.319+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-04-28T13:30:34.254+0000] {logging_mixin.py:190} INFO - AQWbjYSPMgfCyyb0W-hBbXXPfjSzrj-JRoIAAEUeMDk6EnuGf7HXjJTqB4LR0Ld34MSjYWiSSHqRRFtGjbx9gdT4bmnVXQcss6EjKW5JaKwAj8yM7A_TLr5wajmi0vzzCcy16o-no7u5k69WQMtal2MQqqhTxYWSw_YWjiTYgCn7keJzEVa7SHr4litbe-Bsy7_AvvFm-jterGqEJeE6pzzhzbMzlUfaTphlhyBHhP91tUY_zAFby_mI8I8STvVoeav7W0TXr-TMNv212gd-1VULdVBEGBJPrLQ_pUYgE39xXYHqnNFAz5WpQ4lo-Foz-RhDyak5k8M3nr_ziRh3I1C9TFgJbg
+[2025-04-28T13:30:34.261+0000] {logging_mixin.py:190} INFO - 4194399515
+[2025-04-28T13:30:34.267+0000] {logging_mixin.py:190} INFO - 4119734026
+[2025-04-28T13:30:34.273+0000] {logging_mixin.py:190} INFO - 4121159345
+[2025-04-28T13:30:34.280+0000] {logging_mixin.py:190} INFO - 4050739045
+[2025-04-28T13:30:34.285+0000] {logging_mixin.py:190} INFO - 4077930440
+[2025-04-28T13:30:34.290+0000] {logging_mixin.py:190} INFO - 4195031879
+[2025-04-28T13:30:34.294+0000] {logging_mixin.py:190} INFO - 4127906447
+[2025-04-28T13:30:34.298+0000] {logging_mixin.py:190} INFO - 4152444739
+[2025-04-28T13:30:34.304+0000] {logging_mixin.py:190} INFO - 4150670082
+[2025-04-28T13:30:34.308+0000] {logging_mixin.py:190} INFO - 4080660212
+[2025-04-28T13:30:34.312+0000] {logging_mixin.py:190} INFO - 4195065387
+[2025-04-28T13:30:34.316+0000] {logging_mixin.py:190} INFO - 4125572828
+[2025-04-28T13:30:34.322+0000] {logging_mixin.py:190} INFO - 4128643219
+[2025-04-28T13:30:34.327+0000] {logging_mixin.py:190} INFO - 4034598029
+[2025-04-28T13:30:34.331+0000] {logging_mixin.py:190} INFO - 4082681338
+[2025-04-28T13:30:34.338+0000] {logging_mixin.py:190} INFO - 4127910031
+[2025-04-28T13:30:34.342+0000] {logging_mixin.py:190} INFO - 4055014106
+[2025-04-28T13:30:34.347+0000] {logging_mixin.py:190} INFO - 4030606041
+[2025-04-28T13:30:34.351+0000] {logging_mixin.py:190} INFO - 4127906446
+[2025-04-28T13:30:34.356+0000] {logging_mixin.py:190} INFO - 4128087778
+[2025-04-28T13:30:34.360+0000] {logging_mixin.py:190} INFO - 4047250234
+[2025-04-28T13:30:34.365+0000] {logging_mixin.py:190} INFO - 4138977466
+[2025-04-28T13:30:34.370+0000] {logging_mixin.py:190} INFO - 4077927761
+[2025-04-28T13:30:34.374+0000] {logging_mixin.py:190} INFO - 4106579803
+[2025-04-28T13:30:34.377+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-04-28T13:30:34.392+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-04-28T13:30:34.393+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=scheduler_crawling, task_id=crawling_post, run_id=manual__2025-04-28T13:25:01.396662+00:00, execution_date=20250428T132501, start_date=20250428T133030, end_date=20250428T133034
+[2025-04-28T13:30:34.410+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-28T13:30:34.412+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-28T13:30:34.413+0000] {logging_mixin.py:190} INFO - Dag name:scheduler_crawling queued_at:2025-04-28 13:30:25.223563+00:00
+[2025-04-28T13:30:34.414+0000] {logging_mixin.py:190} INFO - Task hostname:74add6dc246e operator:_PythonDecoratedOperator
+[2025-04-28T13:30:34.443+0000] {local_task_job_runner.py:261} INFO - Task exited with return code 0
+[2025-04-28T13:30:34.482+0000] {taskinstance.py:3891} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-28T13:30:34.485+0000] {local_task_job_runner.py:240} INFO - ::endgroup::
