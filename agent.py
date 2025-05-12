@@ -16,10 +16,13 @@ import asyncio
 import os
 import uuid
 import streamlit as st
-from langmem import create_manage_memory_tool, create_search_memory_tool
 from cover.cover_agent import coverwriter
 from job_rag.job_rag_agent import RAG
+from fastapi import FastAPI
 
+
+
+app = FastAPI()
 
 load_dotenv()
 
@@ -47,7 +50,16 @@ docs = PyPDFLoader('./pdf/CV.pdf').load()
 def make_config():
     return {"configurable": {"thread_id": str(uuid.uuid4())}}
 
+
+@app.post('/pdf')
+async def pdf_load(pdf_file: UploadFile = File(...)):
+    contents = await pdf_file.read()
+    docs = PyPDFLoader(contents).load()
+    return {"message": "PDF 처리 완료", "num_pages": len(docs)}
+
+@app.post('/chat')
 async def chat():
+
     print("📄 Cover Letter Chatbot Ready — 'exit' 입력 시 종료")
     config = {"configurable": {"thread_id": "53"}}
     agents= create_react_agent(llm,tools=[coverwriter,RAG],
