@@ -40,8 +40,9 @@ def handle_body(body):
 
 # API 호출 함수
 def fetch_data():
-    url = "https://jsonplaceholder.typicode.com/posts"  # ← 실제 API 주소로 변경
-    response = requests.get(url)
+
+    url = "http://localhost:8000/job_posting"  # ← 실제 API 주소로 변경
+    response = requests.post(url)
     if response.status_code == 200:
         return response.json()[:5]
     return []
@@ -67,6 +68,14 @@ with col1:
                 st.session_state.response = handle_body(item.get("body", ""))
 
 with col2:
+    
+    response = requests.post("http://localhost:8000/chat/")
+    
+    if response.status_code == 200:
+        result = response.json()
+        import pdb
+        pdb.set_trace()
+    
     st.subheader("📥 처리 결과 (Response)")
     if st.session_state.response:
         st.code(st.session_state.response, language="markdown")

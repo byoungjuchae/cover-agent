@@ -18,7 +18,9 @@ import uuid
 import streamlit as st
 from cover.cover_agent import coverwriter
 from job_rag.job_rag_agent import RAG
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
+import requests
+import json
 
 
 
@@ -32,6 +34,7 @@ os.environ['LANGCHAIN_PROJECT'] = "CRAG"
 os.environ['LANGCHAIN_ENDPOINT'] = "https://api.smith.langchain.com"
 
 GEMINI_KEY = os.getenv("GEMINI_KEY")
+INSERT_TOKEN = os.getenv("INSERT_TOKEN")
 
 
 class State(BaseModel):
@@ -49,6 +52,35 @@ docs = PyPDFLoader('./pdf/CV.pdf').load()
 
 def make_config():
     return {"configurable": {"thread_id": str(uuid.uuid4())}}
+
+
+
+@app.post('/job_posting')
+def get_url():
+    headers = {
+    'X-RestLi-Protocol-Version': '2.0.0',
+    'Linkedin-Version': '202503',
+    'Authorization': f'Bearer {INSERT_TOKEN}'  
+    }
+
+    job = response['job']
+    start_day = response['start_day']
+    start_month = response['start_month']
+    start_year = response['start_year']
+    end_day = response['end_day']
+    end_month = response['end_month']
+    end_year = response['end_year']
+
+    url = f"https://api.linkedin.com/rest/jobLibrary?q=criteria&keyword={job}&dateRange=(start:(day:{start_day},month:{start_month},year:{start_year}),end:(day:{end_day},month:{end_month},year:{end_year}))&start=100&count=5"""
+    response = requests.get(url,headers=headers)
+ 
+    docs = []
+    for i in range(len(response.json()['elements'])):
+        name = os.path.basename(response.json()['elements'][i]['jobPostingUrl'])
+        print(i)
+        docs.append(response.json()['elements'][i])
+       
+    return docs
 
 
 @app.post('/pdf')

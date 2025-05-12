@@ -14,8 +14,6 @@ from uuid import uuid4
 
 
 
-def job_throw():
-
     
 
 def job_post():
