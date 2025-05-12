@@ -63,13 +63,13 @@ def get_url():
     'Authorization': f'Bearer {INSERT_TOKEN}'  
     }
 
-    job = response['job']
-    start_day = response['start_day']
-    start_month = response['start_month']
-    start_year = response['start_year']
-    end_day = response['end_day']
-    end_month = response['end_month']
-    end_year = response['end_year']
+    job = "AI%02Engineer"
+    start_day = "12"
+    start_month = "05"
+    start_year = "2025"
+    end_day = "13"
+    end_month = "05"
+    end_year = "2025"
 
     url = f"https://api.linkedin.com/rest/jobLibrary?q=criteria&keyword={job}&dateRange=(start:(day:{start_day},month:{start_month},year:{start_year}),end:(day:{end_day},month:{end_month},year:{end_year}))&start=100&count=5"""
     response = requests.get(url,headers=headers)

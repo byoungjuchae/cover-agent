@@ -43,6 +43,7 @@ def fetch_data():
 
     url = "http://localhost:8000/job_posting"  # ← 실제 API 주소로 변경
     response = requests.post(url)
+
     if response.status_code == 200:
         return response.json()[:5]
     return []
@@ -65,17 +66,15 @@ with col1:
             st.markdown(f"**항목 {i+1}**")
             st.markdown(item.get("body", "No body content")[:80] + "...")
             if st.button(f"▶️ 전송", key=f"send_{i}"):
-                st.session_state.response = handle_body(item.get("body", ""))
+                response = requests.post("http://localhost:8000/chat")
+    
+                if response.status_code == 200:
+                    result = response.json()
+            
 
 with col2:
     
-    response = requests.post("http://localhost:8000/chat/")
-    
-    if response.status_code == 200:
-        result = response.json()
-        import pdb
-        pdb.set_trace()
-    
+
     st.subheader("📥 처리 결과 (Response)")
     if st.session_state.response:
         st.code(st.session_state.response, language="markdown")
