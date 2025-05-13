@@ -86,10 +86,21 @@ def get_url():
 
 @app.post('/pdf')
 async def pdf_load(pdf_file: UploadFile = File(...)):
-    contents = await pdf_file.read()
-    docs = PyPDFLoader(contents).load()
-    return {"message": "PDF 처리 완료", "num_pages": len(docs)}
+    save_path = f"./uploaded_files/{pdf_file.filename}"
 
+    # 디렉토리 없으면 생성
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+    # 저장
+    with open(save_path, "wb") as buffer:
+        content = await pdf_file.read()  # 비동기 read
+        buffer.write(content)
+
+    return {"message": f"파일이 저장되었습니다: {save_path}"}
+
+class ChatRequest(BaseModel):
+
+    message: str
 @app.post('/chat', description="Chat endpoint for cover letter AI agent")
 async def chat(request: ChatRequest):
     """
