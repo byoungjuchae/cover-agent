@@ -23,14 +23,10 @@ if uploaded_file is not None:
         extracted_text += page.extract_text()
 
     st.sidebar.subheader("📃 이력서 요약")
-    st.sidebar.text_area("추출된 내용 (요약)", extracted_text, height=300)
+    st.sidebar.text_area("추출된 내용 (요약)", extracted_text[:1000], height=300)
 
-    files = {
-            "pdf_file": {uploaded_file, "application/pdf"},
-            "pdf_name": uploaded_file.name
-        }
-   
-    response = requests.post("http://localhost:8000/pdf", files=uploaded_file)
+    files = {"pdf_file": (uploaded_file.name, uploaded_file, "application/pdf")}
+    response = requests.post("http://localhost:8000/pdf", files=files)
 
     if response.ok:
         st.success("PDF 전송 성공!")
@@ -47,6 +43,7 @@ def fetch_data():
 
     url = "http://localhost:8000/job_posting"  # ← 실제 API 주소로 변경
     response = requests.post(url)
+
     if response.status_code == 200:
         return response.json()[:5]
     return []
@@ -65,15 +62,9 @@ col1, col2 = st.columns([2, 3])
 with col1:
     st.subheader("🗂️ 항목 목록")
     for i, item in enumerate(st.session_state.data):
-        job = item.get("jobDetails", {})
-        with st.container(border=True):
-            st.markdown(f"### 항목 {i + 1}")
-            st.markdown(f"**회사명 (Organization):** {job.get('organizationName', 'N/A')}")
-            st.markdown(f"**위치 (Location):** {job.get('jobLocation', 'N/A')}")
-            st.markdown(f"**직무 제목 (Job Title):** {job.get('jobTitle', 'N/A')}")
-            st.markdown("**직무 설명 (Job Description):**")
-            st.markdown(job.get("jobDescription", "N/A")) 
-
+        with st.container():
+            st.markdown(f"**항목 {i+1}**")
+            st.markdown(item.get("body", "No body content")[:80] + "...")
             if st.button(f"▶️ 전송", key=f"send_{i}"):
                 response = requests.post("http://localhost:8000/chat")
     
