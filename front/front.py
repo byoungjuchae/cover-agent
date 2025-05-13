@@ -59,18 +59,47 @@ if not st.session_state.data:
 # 레이아웃
 col1, col2 = st.columns([2, 3])
 
+
 with col1:
     st.subheader("🗂️ 항목 목록")
+
     for i, item in enumerate(st.session_state.data):
-        with st.container():
-            st.markdown(f"**항목 {i+1}**")
-            st.markdown(item.get("body", "No body content")[:80] + "...")
-            if st.button(f"▶️ 전송", key=f"send_{i}"):
-                response = requests.post("http://localhost:8000/chat")
-    
-                if response.status_code == 200:
-                    result = response.json()
-            
+        job = item.get("jobDetails", {})
+        with st.container(border=True):
+            st.markdown(f"### 항목 {i + 1}")
+            st.markdown(f"**회사명 (Organization):** {job.get('organizationName', 'N/A')}")
+            st.markdown(f"**위치 (Location):** {job.get('jobLocation', 'N/A')}")
+            st.markdown(f"**직무 제목 (Job Title):** {job.get('jobTitle', 'N/A')}")
+            st.markdown("**직무 설명 (Job Description):**")
+            st.markdown(job.get("jobDescription", "N/A"))
+
+            # 입력창과 버튼을 가로로 나란히 배치
+            col_input, col_button = st.columns([4, 1])
+            with col_input:
+                user_input = st.text_input(
+                    f"입력 메시지 ({i+1})", 
+                    placeholder="ex) Write a cover letter for this job",
+                    key=f"user_input_{i}"
+                )
+            with col_button:
+                if st.button(f"▶️ 전송", key=f"send_{i}"):
+                    if not user_input.strip():
+                        st.warning("⛔ 메시지를 입력하세요!")
+                    else:
+                        payload = {
+                            "message": user_input,
+                            "job": job
+                        }
+                        try:
+                            response = requests.post("http://localhost:8000/chat", json=payload)
+                            if response.status_code == 200:
+                                st.success("✅ 전송 성공!")
+                                st.json(response.json())
+                            else:
+                                st.error(f"❌ 실패: {response.status_code} - {response.text}")
+                        except Exception as e:
+                            st.error(f"❌ 예외 발생: {str(e)}")
+
 
 with col2:
     
