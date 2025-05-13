@@ -28,10 +28,11 @@ app = FastAPI()
 
 load_dotenv()
 
-os.environ['LANGCHAIN_API_KEY'] = os.getenv('LANGCHAIN_API_KEY')
-os.environ['LANGCHAIN_TRACING_V2'] = "true"
-os.environ['LANGCHAIN_PROJECT'] = "CRAG"
-os.environ['LANGCHAIN_ENDPOINT'] = "https://api.smith.langchain.com"
+
+# os.environ['LANGCHAIN_API_KEY'] = os.getenv('LANGCHAIN_API_KEY')
+# os.environ['LANGCHAIN_TRACING_V2'] = "true"
+# os.environ['LANGCHAIN_PROJECT'] = "CRAG"
+# os.environ['LANGCHAIN_ENDPOINT'] = "https://api.smith.langchain.com"
 
 GEMINI_KEY = os.getenv("GEMINI_KEY")
 INSERT_TOKEN = os.getenv("INSERT_TOKEN")
@@ -89,32 +90,36 @@ async def pdf_load(pdf_file: UploadFile = File(...)):
     docs = PyPDFLoader(contents).load()
     return {"message": "PDF 처리 완료", "num_pages": len(docs)}
 
-@app.post('/chat')
-async def chat():
+@app.post('/chat', description="Chat endpoint for cover letter AI agent")
+async def chat(request: ChatRequest):
+    """
+    사용자의 메시지를 받아 Cover Letter 에이전트를 실행합니다.
+    """
 
-    print("📄 Cover Letter Chatbot Ready — 'exit' 입력 시 종료")
     config = {"configurable": {"thread_id": "53"}}
-    agents= create_react_agent(llm,tools=[coverwriter,RAG],
-    prompt=("You're a helpful assistant designed to use tools effectively. When a question comes in, don't ask for permission—if it looks like a tool should be used, just go ahead and use it."
-            "if you want assistance crafting your cover letter, execute coverwriter."
-            "if you want to find specific company, execute RAG"
-            "Based on user needs, proactively select the most appropriate tool or combination of tools. For complex tasks, you can break down the problem and use different tools step by step to solve it. After using each tool, clearly explain the execution results and suggest the next steps."    
+
+    agents = create_react_agent(
+        llm,
+        tools=[coverwriter, cv_write],
+        prompt=(
+            "You're a helpful assistant designed to use tools effectively. "
+            "When a question comes in, don't ask for permission—just use the tool. "
+            "If the user wants assistance crafting a cover letter, execute 'coverwriter'. "
+            "If the user wants to find a specific company, execute 'RAG'. "
+            "For complex tasks, break them down and use tools step by step."
         )
     )
-    while True:
-        user_input = input()
-        if user_input.strip().lower() in ("exit", "quit"):
-            print("Bot: Goodbye! 👋")
-            break
-        async for chunk in agents.astream(
-            {"messages": [("human", user_input)]},
-            config=config
-        ):
 
-            print("\nBot COVER LETTER:\n")
-            print(chunk)
+    user_input = request.message
 
-docs = [doc.page_content for doc in docs]
+    response_text = ""
+    async for chunk in agents.astream(
+        {"messages": [("human", user_input)]},
+        config=config
+    ):
+        response_text += chunk
+
+    return {"reply": response_text}
 
 
 
