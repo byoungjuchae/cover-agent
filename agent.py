@@ -23,7 +23,7 @@ from fastapi import FastAPI, UploadFile, File, Form
 import requests
 import requests
 import json
-from CV_writing.CV_re import cv_write
+
 from fastapi import FastAPI, File, UploadFile
 
 
@@ -113,6 +113,7 @@ def get_url():
 
 @app.post('/pdf')
 async def pdf_load(pdf_file: UploadFile = File(...)):
+
     save_path = f"./uploaded_files/{pdf_file.filename}"
 
     # 디렉토리 없으면 생성
