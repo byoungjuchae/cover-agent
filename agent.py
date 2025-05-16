@@ -5,9 +5,10 @@ from langgraph.store.memory import InMemoryStore
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_openai import ChatOpenAI
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.tools import tool
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
 from langgraph.graph import StateGraph, END
 from dotenv import load_dotenv
@@ -18,9 +19,12 @@ import uuid
 import streamlit as st
 from cover.cover_agent import coverwriter
 from job_rag.job_rag_agent import RAG
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Form
+import requests
 import requests
 import json
+from CV_writing.CV_re import cv_write
+from fastapi import FastAPI, File, UploadFile
 
 
 
@@ -34,9 +38,9 @@ load_dotenv()
 # os.environ['LANGCHAIN_PROJECT'] = "CRAG"
 # os.environ['LANGCHAIN_ENDPOINT'] = "https://api.smith.langchain.com"
 
-GEMINI_KEY = os.getenv("GEMINI_KEY")
-INSERT_TOKEN = os.getenv("INSERT_TOKEN")
 
+INSERT_TOKEN = os.getenv("INSERT_TOKEN")
+OPENAI_KEY = os.getenv("OPENAI_KEY")
 
 class State(BaseModel):
     
@@ -48,39 +52,62 @@ class State(BaseModel):
     result : str
     score : str
     
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=GEMINI_KEY)
-docs = PyPDFLoader('./pdf/CV.pdf').load()
+llm = ChatOpenAI(model="gpt-4.1-mini", openai_api_key=OPENAI_KEY,temperature=0.7)
+
 
 def make_config():
     return {"configurable": {"thread_id": str(uuid.uuid4())}}
+
+class JobSearchConfig(BaseModel):
+    job: str
+    start_day: str
+    start_month: str
+    start_year: str
+    end_day: str
+    end_month: str
+    end_year: str
+
+
+
+current_config = JobSearchConfig(
+    job="AI%20Engineer",
+    start_day="12",
+    start_month="05",
+    start_year="2025",
+    end_day="13",
+    end_month="05",
+    end_year="2025"
+)
+start_index = 0
+
+@app.post("/set_job_config")
+def set_job_config(config: JobSearchConfig):
+    global current_config
+    current_config = config
+    return {"message": "Job configuration updated successfully."}
+
 
 
 
 @app.post('/job_posting')
 def get_url():
+    global start_index, current_config 
     headers = {
     'X-RestLi-Protocol-Version': '2.0.0',
     'Linkedin-Version': '202503',
     'Authorization': f'Bearer {INSERT_TOKEN}'  
     }
 
-    job = "AI%02Engineer"
-    start_day = "12"
-    start_month = "05"
-    start_year = "2025"
-    end_day = "13"
-    end_month = "05"
-    end_year = "2025"
 
-    url = f"https://api.linkedin.com/rest/jobLibrary?q=criteria&keyword={job}&dateRange=(start:(day:{start_day},month:{start_month},year:{start_year}),end:(day:{end_day},month:{end_month},year:{end_year}))&start=100&count=5"""
+    url = f"https://api.linkedin.com/rest/jobLibrary?q=criteria&keyword={current_config.job}&dateRange=(start:(day:{current_config.start_day},month:{current_config.start_month},year:{current_config.start_year}),end:(day:{current_config.end_day},month:{current_config.end_month},year:{current_config.end_year}))&start={start_index}&count=5"
+    
     response = requests.get(url,headers=headers)
  
     docs = []
     for i in range(len(response.json()['elements'])):
         name = os.path.basename(response.json()['elements'][i]['jobPostingUrl'])
-        print(i)
         docs.append(response.json()['elements'][i])
-       
+    start_index += 1
     return docs
 
 
@@ -98,11 +125,12 @@ async def pdf_load(pdf_file: UploadFile = File(...)):
 
     return {"message": f"파일이 저장되었습니다: {save_path}"}
 
-class ChatRequest(BaseModel):
-
-    message: str
+class OuterModel(BaseModel):
+    request: str
+    jobdes: str
+    name : str
 @app.post('/chat', description="Chat endpoint for cover letter AI agent")
-async def chat(request: ChatRequest):
+async def chat(data:OuterModel):
     """
     사용자의 메시지를 받아 Cover Letter 에이전트를 실행합니다.
     """
@@ -111,7 +139,7 @@ async def chat(request: ChatRequest):
 
     agents = create_react_agent(
         llm,
-        tools=[coverwriter, cv_write],
+        tools=[coverwriter],
         prompt=(
             "You're a helpful assistant designed to use tools effectively. "
             "When a question comes in, don't ask for permission—just use the tool. "
@@ -120,20 +148,24 @@ async def chat(request: ChatRequest):
             "For complex tasks, break them down and use tools step by step."
         )
     )
-
-    user_input = request.message
+    
+    user_input = data.request + 'Here is the Job description:' + data.jobdes
 
     response_text = ""
+    chunks = []
     async for chunk in agents.astream(
         {"messages": [("human", user_input)]},
         config=config
-    ):
-        response_text += chunk
+    ):  
+        chunks.append(chunk)
+        print(chunk)
 
+    response_text += chunks[-2]['tools']['messages'][0].content
     return {"reply": response_text}
 
 
 
 if __name__ == '__main__':
-
-    asyncio.run(chat())
+    files = {"request": "write a cover letter"}
+                           
+    asyncio.run(chat(files))
