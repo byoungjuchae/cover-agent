@@ -16,6 +16,7 @@ st.sidebar.header("📎 이력서 업로드")
 uploaded_file = st.sidebar.file_uploader("PDF 형식 이력서 업로드", type=["pdf"])
 
 if uploaded_file is not None:
+   
     st.write("파일 이름:", uploaded_file.name)
     reader = PyPDF2.PdfReader(uploaded_file)
     extracted_text = ""
@@ -25,7 +26,7 @@ if uploaded_file is not None:
     st.sidebar.subheader("📃 이력서 요약")
     st.sidebar.text_area("추출된 내용 (요약)", extracted_text[:1000], height=300)
 
-    files = {"pdf_file": (extracted_text, "application/json")}
+    files = {"pdf_file": (uploaded_file.name, uploaded_file, "application/pdf")}
     response = requests.post("http://localhost:8000/pdf", files=files)
 
     if response.ok:
@@ -72,8 +73,8 @@ def handle_body(body):
 
 # API 호출 함수
 def fetch_data():
-    url = "https://jsonplaceholder.typicode.com/posts"  # ← 실제 API 주소로 변경
-    response = requests.get(url)
+    url = "http://localhost:8000/job_posting" 
+    response = requests.post(url)
     if response.status_code == 200:
         return response.json()[:5]
     return []
