@@ -1,11 +1,12 @@
 from langgraph.graph import StateGraph, END
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.tools import tool
 from pydantic import BaseModel, Field
 import json
-from langchain_google_genai import ChatGoogleGenerativeAI
+
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
@@ -24,8 +25,8 @@ class State(BaseModel):
     score :str= Field(default='')
 
 
-GEMINI_KEY = os.getenv("GEMINI_KEY")
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=GEMINI_KEY)
+OPENAI_KEY = os.getenv("OPENAI_KEY")
+llm = ChatOpenAI(model='gpt-4.1-mini',openai_api_key = OPENAI_KEY,temperature=0.7)
 docs = PyPDFLoader('./pdf/CV.pdf').load()
 
 
