@@ -8,8 +8,8 @@ st.title("📨 항목 선택 → 응답 보기 + 📄 CV 업로드")
 # 세션 상태 초기화
 if "data" not in st.session_state:
     st.session_state.data = []
-if "response" not in st.session_state:
-    st.session_state.response = ""
+if "responses" not in st.session_state:
+    st.session_state.response = []
 
 # --- 📄 CV 업로드 ---
 st.sidebar.header("📎 이력서 업로드")
@@ -25,7 +25,7 @@ if uploaded_file is not None:
     st.sidebar.subheader("📃 이력서 요약")
     st.sidebar.text_area("추출된 내용 (요약)", extracted_text[:1000], height=300)
 
-    files = {"pdf_file": (uploaded_file.name, uploaded_file, "application/pdf")}
+    files = {"pdf_file": (extracted_text, "application/json")}
     response = requests.post("http://localhost:8000/pdf", files=files)
 
     if response.ok:
@@ -34,16 +34,46 @@ if uploaded_file is not None:
     else:
         st.error("서버 에러")
 
+
+st.sidebar.header("🛠️ 검색 기준 설정")
+
+with st.sidebar.form("job_config_form"):
+    job = st.text_input("🔍 검색 키워드 (예: AI Engineer)", value="AI Engineer")
+    start_day = st.text_input("시작일(day)", value="12")
+    start_month = st.text_input("시작월(month)", value="05")
+    start_year = st.text_input("시작년(year)", value="2025")
+    end_day = st.text_input("종료일(day)", value="13")
+    end_month = st.text_input("종료월(month)", value="05")
+    end_year = st.text_input("종료년(year)", value="2025")
+    submitted = st.form_submit_button("✅ 설정 적용")
+
+    if submitted:
+        config_data = {
+            "job": job.replace(" ", "%20"),  # URL-safe encoding
+            "start_day": start_day,
+            "start_month": start_month,
+            "start_year": start_year,
+            "end_day": end_day,
+            "end_month": end_month,
+            "end_year": end_year
+        }
+
+        try:
+            response = requests.post("http://localhost:8000/set_job_config", json=config_data)
+            if response.ok:
+                st.success("🔄 설정이 성공적으로 적용되었습니다.")
+            else:
+                st.error(f"❌ 실패: {response.status_code} - {response.text}")
+        except Exception as e:
+            st.error(f"❌ 예외 발생: {str(e)}")
 # 응답 처리 함수
 def handle_body(body):
     return f"서버로 전송된 body 내용 (앞 100자):\n\n{body[:100]}..."
 
 # API 호출 함수
 def fetch_data():
-
-    url = "http://localhost:8000/job_posting"  # ← 실제 API 주소로 변경
-    response = requests.post(url)
-
+    url = "https://jsonplaceholder.typicode.com/posts"  # ← 실제 API 주소로 변경
+    response = requests.get(url)
     if response.status_code == 200:
         return response.json()[:5]
     return []
@@ -86,28 +116,32 @@ with col1:
                     if not user_input.strip():
                         st.warning("⛔ 메시지를 입력하세요!")
                     else:
-                        payload = {
-                            "message": user_input,
-                            "job": job
-                        }
+                        files = {
+                            "request": user_input,
+                            "jobdes": job.get("jobDescription", "N/A"),
+                            "name": uploaded_file.name
+                            }
+                   
                         try:
-                            response = requests.post("http://localhost:8000/chat", json=payload)
+                            response = requests.post("http://localhost:8000/chat", json=files)
                             if response.status_code == 200:
                                 st.success("✅ 전송 성공!")
-                                st.json(response.json())
+                                st.session_state.response = response.json()
+        
                             else:
                                 st.error(f"❌ 실패: {response.status_code} - {response.text}")
                         except Exception as e:
                             st.error(f"❌ 예외 발생: {str(e)}")
 
 
-with col2:
-    
 
+with col2:
     st.subheader("📥 처리 결과 (Response)")
+    # response가 있을 경우에만 출력
+   
     if st.session_state.response:
-        st.code(st.session_state.response, language="markdown")
-    else:
-        st.info("왼쪽에서 항목을 선택해 주세요.")
+
+        st.markdown(st.session_state.response['reply'])
+
 
 
