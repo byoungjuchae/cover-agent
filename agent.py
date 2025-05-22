@@ -11,6 +11,8 @@ from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
 from langgraph.graph import StateGraph, END
+from langchain_mcp_adapters.client import MultiServerMCPClient
+from portfolio_analysis.portfolio import portfolio_an
 from dotenv import load_dotenv
 from pydantic import BaseModel
 import asyncio
@@ -21,10 +23,8 @@ from cover.cover_agent import coverwriter
 from job_rag.job_rag_agent import RAG
 from fastapi import FastAPI, UploadFile, File, Form
 import requests
-import requests
 import json
 
-from fastapi import FastAPI, File, UploadFile
 
 
 
@@ -107,7 +107,7 @@ def get_url():
     for i in range(len(response.json()['elements'])):
         name = os.path.basename(response.json()['elements'][i]['jobPostingUrl'])
         docs.append(response.json()['elements'][i])
-    start_index += 1
+    start_index += 5
     return docs
 
 
@@ -130,6 +130,18 @@ class OuterModel(BaseModel):
     request: str
     jobdes: str
     name : str
+
+session =   {
+
+
+            "coverwriters":{
+                "command": "python3",
+                "args":["./cover/cover_agent.py"],
+                "transport" : "stdio",
+
+            }
+
+        }
 @app.post('/chat', description="Chat endpoint for cover letter AI agent")
 async def chat(data:OuterModel):
     """
@@ -137,16 +149,21 @@ async def chat(data:OuterModel):
     """
 
     config = {"configurable": {"thread_id": "53"}}
+    client = MultiServerMCPClient(session)
+
+    tools = await client.get_tools()
 
     agents = create_react_agent(
         llm,
-        tools=[coverwriter],
+        tools=tools,
         prompt=(
             "You're a helpful assistant designed to use tools effectively. "
             "When a question comes in, don't ask for permission—just use the tool. "
-            "If the user wants assistance crafting a cover letter, execute 'coverwriter'. "
+            "If the user wants assistance crafting a cover letter, execute 'coverwriter'."
             "If the user wants to find a specific company, execute 'RAG'. "
+            "If the user adds the portfolio file, execute 'portfolio_an'"
             "For complex tasks, break them down and use tools step by step."
+            
         )
     )
     
