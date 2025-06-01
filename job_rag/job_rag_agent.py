@@ -1,11 +1,9 @@
 from pydantic import BaseModel, Field
 from langchain_core.tools import tool
-from langchain_milvus import Milvus
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.documents import Document
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_milvus import Milvus
 from glob import glob 
 import os
 import json
