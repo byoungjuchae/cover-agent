@@ -12,7 +12,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
 from langgraph.graph import StateGraph, END
 from langchain_mcp_adapters.client import MultiServerMCPClient
-from portfolio_analysis.portfolio import portfolio_an
+#from portfolio_analysis.portfolio import portfolio_analyze
 from dotenv import load_dotenv
 from pydantic import BaseModel
 import asyncio

@@ -4,7 +4,7 @@ from airflow.operators.python import PythonOperator, get_current_context
 from datetime import timedelta, datetime
 import os
 from dotenv import load_dotenv
-
+import requests
 
 load_dotenv()
 INSERT_TOKEN  = os.getenv("INSERT_TOKEN")

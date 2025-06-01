@@ -19,7 +19,7 @@ load_dotenv()
 
 
 OPENAI = os.environ["OPENAI_KEY"]
-llm = ChatOpenAI(model='gpt-4.1',openai_api_key=OPENAI)
+llm = ChatOpenAI(model='gpt-4o-mini',openai_api_key=OPENAI,temperature=0.7)
 
 
 # def portfolio_loading(pdf_file:str):
@@ -30,7 +30,7 @@ llm = ChatOpenAI(model='gpt-4.1',openai_api_key=OPENAI)
 #         img.save(f"{output_folder}/SALES_{i}.png")
 #     doc.close()
 
-def portfolio_an(pdf_file):
+def portfolio_analyze(pdf_file):
     with open(pdf_file,"rb") as file:
         #reader = PyPDF2.PdfReader(file)
         file.seek(0)
@@ -63,4 +63,4 @@ def portfolio_an(pdf_file):
 
 if __name__ == '__main__':
 
-    portfolio_analysis('./pdf/CV.pdf')
+    portfolio_analyze('./pdf/Portfolio_채병주_0522.pdf')
