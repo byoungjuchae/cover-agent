@@ -42,10 +42,9 @@ app = FastAPI()
 load_dotenv()
 
 
-llm = ChatOpenAI(model='gpt-4o-mini',openai_api_key= API)
 
 INSERT_TOKEN = os.getenv("INSERT_TOKEN")
-
+OPENAI_KEY = os.getenv("OPENAI_KEY")
 
 class State(BaseModel):
     
