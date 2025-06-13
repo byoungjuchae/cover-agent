@@ -1,11 +1,15 @@
-pipeline{
+pipeline {
     agent any
-    environment{
-        github_respository = "https://github.com/byoungjuchae/cover-agent.git"
+
+    environment {
+        GITHUB_REPOSITORY = "https://github.com/byoungjuchae/cover-agent.git"
     }
 
-    stage("Clone"){
-            sh 'git clone $github_respository'
+    stages {
+        stage("Clone") {
+            steps {
+                sh 'git clone $GITHUB_REPOSITORY'
+            }
         }
-    
+    }
 }
