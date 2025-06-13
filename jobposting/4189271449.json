@@ -1,0 +1,14 @@
+{
+    "jobPostingUrl": "https://www.linkedin.com/ad-library/job/detail/4189271449",
+    "restrictionReason": "This information is only available for restricted jobs.",
+    "jobDetails": {
+        "organizationName": "SUPCON",
+        "jobLocation": "Singapore, Singapore",
+        "jobTitle": "AI Optimization Engineer",
+        "payerName": "SUPCON",
+        "jobDescription": "Overview:We provide automation and digitalization technologies to the world's leadingprocess industries, serving over 30,000 large industrial enterprises globally with ateam of 5,000+ employees.Our R&amp;D teams focus on Process Industry AI (AIO) and modern industrialsoftware applications, with work locations in Singapore, China Hangzhou, and Japan.\nJob Responsibilities:Use data-driven and AI approaches to push beyond the limits offirst-principles-based chemical process control.\nPreferred Qualities:Passion about the intersection of chemical process control, softwareengineering, and machine learning.Strong foundation in Chemical Process Engineering.\nQualifications:Understand the difference between AI Optimization and traditional controlmethods like MPC—and can prove you have what it takes to contribute.Comfortable with software engineering &amp; ML basics—e.g., launching an Ubuntu image, setting up a PyTorch environment, and building a data pipeline.",
+        "organizationUrl": "https://www.linkedin.com/company/1753553",
+        "jobListTimeInMilliseconds": 1744786134000
+    },
+    "isRestricted": false
+}

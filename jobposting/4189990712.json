@@ -1,0 +1,14 @@
+{
+    "jobPostingUrl": "https://www.linkedin.com/ad-library/job/detail/4189990712",
+    "restrictionReason": "This information is only available for restricted jobs.",
+    "jobDetails": {
+        "organizationName": "FactSet Research Systems Inc.",
+        "jobLocation": "São Paulo, São Paulo, Brazil",
+        "jobTitle": "Software Engineer - Design System - Must have Fluency in English, both Written and Verbal (Vue or React, JavaScript, TypeScript, & Web App's)",
+        "payerName": "FactSet",
+        "jobDescription": "FactSet is hiring a skilled Software Engineer for its Design System team in São Paulo, Brazil. This team, part of the Client Experience and Engagement Engineering department, focuses on providing tools for creating modern, consistent user interfaces. You’ll collaborate closely with cross-functional teams to enhance developer efficiency and improve solutions for FactSet's clients. Key projects include developing the Design System component library, improving data grids and charting, and integratinggenerative AI.In this role, you will:Develop software solutions using TypeScript and Vue.js.Work with product managers, designers, and developers to meet project requirements and quality standards.Participate in the full software development lifecycle for efficient delivery.Conduct code reviews to ensure quality and compliance.Stay informed about web development trends and technologies.Work Hybrid at least 2 days per weekOpportunities:Impact the broader FactSet engineering community through groups like the Web Guidance Group, gaining insight into decision-making processes.Required Skills:Bachelor's degree in Computer Science, a related technical field or equivalent experience  1+ years of experience working professionally as a Software Developer building web applications  A passion to provide value by enabling other developers  Experience using JavaScript, TypeScript and a modern web framework such as Vue or React  Highly Desired Skills:In-depth knowledge of Web Content Accessibility Guidelines (WCAG)  Strong fundamental knowledge of HTML, CSS, JS, and WAI-ARIA in the browser  Experience with build tools and server-side JS in NodeJS  Experience with automated testing including browser-based tests for accessibility  Experience with CI/CD automation and at least one cloud provider  Experience with Scrum, Kanban or Agile software development in general  Experience working with or contributing to open-source projects",
+        "organizationUrl": "https://www.linkedin.com/company/163755",
+        "jobListTimeInMilliseconds": 1744723277000
+    },
+    "isRestricted": false
+}
