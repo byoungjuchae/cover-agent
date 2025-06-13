@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         GITHUB_REPOSITORY = "https://github.com/byoungjuchae/cover-agent.git"
+        GIT_BRANCH = "main"
         DOCKER_IMAGE_NAME = "cover_letter"
         DOCKER_TAG = "0.1v"
     }
@@ -10,7 +11,11 @@ pipeline {
     stages {
         stage("Clone") {
             steps {
-                git "${GITHUB_REPOSITORY}:main"
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "*/${env.GIT_BRANCH}"]],
+                    userRemoteConfigs: [[
+                        url: "${env.GITHUB_REPOSITORY}"
+                    ]]])
             }
         }
         stage("Docker"){
@@ -20,6 +25,6 @@ pipeline {
                 }
             }
         }
-        
+
     }
 }
