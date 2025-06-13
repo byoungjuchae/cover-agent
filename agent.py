@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
 from langgraph.checkpoint.memory import InMemorySaver
@@ -21,17 +20,11 @@ import os
 import uuid
 import streamlit as st
 from cover.cover_agent import coverwriter
-<<<<<<< HEAD
-from job_rag.job_rag_agent import RAG
-<<<<<<< HEAD
-=======
 from CV_writing.CV_re import cv_write
 from fastapi import FastAPI, UploadFile, File, Request
 from pydantic import BaseModel
-from fastapi.responses import StreamingResponse
 import requests
 import shutil
->>>>>>> main
 from fastapi import FastAPI, UploadFile, File, Form
 import requests
 import json
