@@ -3,9 +3,9 @@ pipeline{
     environment{
         github_respository = "https://github.com/byoungjuchae/cover-agent.git"
     }
-    stages{
-        stage("Clone"){
+
+    stage("Clone"){
             sh 'git clone $github_respository'
         }
-    }
+    
 }
