@@ -1,9 +1,9 @@
 FROM  python:3.11.13
 
 
-WORKDIR /home
 
 COPY /home/requirements.txt requirements.txt
+WORKDIR /home
 
 RUN apt-get update \
     apt-get install pip \
