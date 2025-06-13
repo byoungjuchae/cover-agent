@@ -1,9 +1,11 @@
 pipeline{
     agent any
-
+    environment{
+        github_respository = "https://github.com/byoungjuchae/cover-agent.git"
+    }
     stages{
         stage("Clone"){
-            checkout scm
+            sh 'git clone $github_respository'
         }
     }
 }
