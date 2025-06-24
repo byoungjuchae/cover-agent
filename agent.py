@@ -107,7 +107,7 @@ def get_url():
     url = f"https://api.linkedin.com/rest/jobLibrary?q=criteria&keyword={current_config.job}&dateRange=(start:(day:{current_config.start_day},month:{current_config.start_month},year:{current_config.start_year}),end:(day:{current_config.end_day},month:{current_config.end_month},year:{current_config.end_year}))&start={start_index}&count=5"
     
     response = requests.get(url,headers=headers)
- 
+
     docs = []
     for i in range(len(response.json()['elements'])):
         name = os.path.basename(response.json()['elements'][i]['jobPostingUrl'])
@@ -150,7 +150,7 @@ async def pdf(pdf_file: UploadFile = File(...)):
     return {"message": "PDF 처리 완료", "num_pages": len(docs)}
 
 @app.post('/chat', description="Chat endpoint for cover letter AI agent")
-async def chat(data):
+async def chat(data:OuterModel):
     """
     사용자의 메시지를 받아 Cover Letter 에이전트를 실행합니다.
     """
@@ -169,7 +169,7 @@ async def chat(data):
         )
     )
     
-    user_input = data["request"] + 'Here is the Job description:' +'abcd' 
+    user_input = data.request + 'Here is the Job description:' + data.jobdes
 
     response_text = ""
     chunks = []

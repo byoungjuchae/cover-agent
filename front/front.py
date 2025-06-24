@@ -86,12 +86,11 @@ if st.button("🔁 Data F5"):
     st.session_state.data = fetch_data()
 
 col1, col2 = st.columns([2, 3])
-
-
 with col1:
     st.subheader("🗂️ List")
-
+    j=0
     for i, item in enumerate(st.session_state.data):
+        
         job = item.get("jobDetails", {})
         with st.container(border=True):
 
@@ -101,12 +100,6 @@ with col1:
             st.markdown(f"**Job Title:** {job.get('jobTitle', 'N/A')}")
             st.markdown("**Job Description:**")
 
-            st.markdown(f"### 항목 {i + 1}")
-            st.markdown(f"**회사명 (Organization):** {job.get('organizationName', 'N/A')}")
-            st.markdown(f"**위치 (Location):** {job.get('jobLocation', 'N/A')}")
-            st.markdown(f"**직무 제목 (Job Title):** {job.get('jobTitle', 'N/A')}")
-            st.markdown("**직무 설명 (Job Description):**")
-
             st.markdown(job.get("jobDescription", "N/A"))
 
             # 입력창과 버튼을 가로로 나란히 배치
@@ -115,19 +108,21 @@ with col1:
                 user_input = st.text_input(
                     f"입력 메시지 ({i+1})", 
                     placeholder="ex) Write a cover letter for this job",
-                    key=f"user_input_{i}"
+                    key=f"user_input_{i+1}"
                 )
             with col_button:
 
-                if st.button(f"▶️ Send", key=f"send_{i}"):
-                    if not user_input.strip():
-                        st.warning("⛔ 메시지를 입력하세요!")
+                if st.button(f"▶️ Send", key=f"send_{i+1}"):
+                  
+                    if uploaded_file is None:
+                        st.warning("⚠️ 먼저 PDF 파일을 업로드하세요.")
                     else:
+                        # 파일이 있는 경우에만 API 호출
                         files = {
                             "request": user_input,
                             "jobdes": job.get("jobDescription", "N/A"),
                             "name": uploaded_file.name
-                            }
+                        }
                    
                         try:
                             response = requests.post("http://localhost:8000/chat", json=files)
@@ -143,25 +138,6 @@ with col1:
                         except Exception as e:
                             st.error(f"❌ Exception: {str(e)}")
 
-
-                if st.button(f"▶️ 전송", key=f"send_{i}"):
-                    if not user_input.strip():
-                        st.warning("⛔ 메시지를 입력하세요!")
-                    else:
-                        payload = {
-                            "message": user_input
-                        }
-                        try:
-                            headers = {"Content-Type": "application/json"}
-                            response = requests.post("http://localhost:8000/chatas", json=payload)
-                            if response.status_code == 200:
-                                st.success("✅ 전송 성공!")
-                                st.json(response.json())
-                            else:
-                                st.error(f"❌ 실패: {response.status_code} - {response.text}")
-                        except Exception as e:
-                            st.error(f"❌ 예외 발생: {str(e)}")
-            
 
 with col2:
     st.subheader("📥 Cover Letter Result")
