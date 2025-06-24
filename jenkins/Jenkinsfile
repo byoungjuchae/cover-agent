@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+
+    environment {
+        GITHUB_REPOSITORY = "https://github.com/byoungjuchae/cover-agent.git"
+        GIT_BRANCH = "main"
+        DOCKER_IMAGE_NAME = "cover_letter"
+        DOCKERHUB_CREDENTIALS = credentials('jenkins-docker')
+        DOCKER_TAG = "0.1v"
+
+    }
+
+    stages{
+        stage("Clone") {
+            steps {
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "*/${env.GIT_BRANCH}"]],
+                    userRemoteConfigs: [[
+                        url: "${env.GITHUB_REPOSITORY}"
+                    ]]])
+            }
+        }
+        stage("Docker Pull"){
+            steps{
+                script{
+                    sh "docker pull ${DOCKER_IMAGE_NAME}:${DOCKER_TAG} || true"
+                }
+            }
+        }
+        stage("Build with cache"){
+            steps{
+                script{
+                    sh """
+                    docker build \
+                    --cache-from=wpdhkd1642/${DOCKER_IMAGE_NAME}:${DOCKER_TAG} .
+                    """
+                }
+            }
+        }
+        stage('Login'){
+                steps{
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' // docker hub 로그인
+                }
+            }
+        stage("Docker Push"){
+            steps{
+                script{
+                    sh "docker push wpdhkd1642/${DOCKER_IMAGE_NAME}:${DOCKER_TAG}"
+                }
+            }
+        }
+        stage("EC2"){
+            steps{
+                script{
+                    sshagents(credentials:['ec2']){
+                    sshCommand remote: remote, command: 'sh echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    sshCommand remote: remote, command: 'docker ps'
+                }
+            }
+        }
+
+    }
+}
+}
+
+
+    
+

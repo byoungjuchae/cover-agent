@@ -1,0 +1,10 @@
+.env
+jobposting/
+.java/
+logs/
+downs/
+process/
+users/
+userContent/
+war/
+cover.pem
