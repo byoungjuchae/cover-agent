@@ -5,7 +5,7 @@ pipeline {
         GITHUB_REPOSITORY = "https://github.com/byoungjuchae/cover-agent.git"
         GIT_BRANCH = "main"
         DOCKER_IMAGE_NAME = "cover_letter"
-        DOCKERHUB_CREDENTIALS = credentials('jenkins-docker')
+        DOCKERHUB_CREDENTIALS = credentials('docker')
         DOCKER_TAG = "0.1v"
 
     }
