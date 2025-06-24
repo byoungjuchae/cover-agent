@@ -27,16 +27,7 @@ pipeline {
                 }
             }
         }
-        stage("Build with cache"){
-            steps{
-                script{
-                    sh """
-                    docker build \
-                    --cache-from=wpdhkd1642/${DOCKER_IMAGE_NAME}:${DOCKER_TAG} .
-                    """
-                }
-            }
-        }
+
         stage('Login'){
                 steps{
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' // docker hub 로그인
