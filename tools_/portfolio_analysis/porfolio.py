@@ -13,25 +13,10 @@ import base64
 load_dotenv()
 
 
-# os.environ['LANGCHAIN_API_KEY'] = os.getenv('LANGCHAIN_API_KEY')
-# os.environ['LANGCHAIN_TRACING_V2'] = "true"
-# os.environ['LANGCHAIN_PROJECT'] = "CRAG"
-# os.environ['LANGCHAIN_ENDPOINT'] = "https://api.smith.langchain.com"
-
-
 OPENAI = os.environ["OPENAI_KEY"]
-llm = ChatOpenAI(model='gpt-4.1',openai_api_key=OPENAI)
-
-
-# def portfolio_loading(pdf_file:str):
-
-#     doc = fitz.open(pdf_file)
-#     for i, page in enumerate(doc):
-#         img = page.get_pixmap()
-#         img.save(f"{output_folder}/SALES_{i}.png")
-#     doc.close()
-@tool()
-async def portfolio_analysi(pdf_file):
+llm = ChatOpenAI(model='gpt-4o-mini',openai_api_key=OPENAI)
+@tool
+def portfolio_analysi(pdf_file:str):
     """you have to use this tool when you have to analysis portfolio"""
     with open(pdf_file,"rb") as file:
         #reader = PyPDF2.PdfReader(file)
@@ -61,8 +46,8 @@ async def portfolio_analysi(pdf_file):
     response = chain.invoke([message])
     print(response)
 
-
-
 # if __name__ == '__main__':
+#     print("portfolio_analysis start")
 
-#     portfolio_analysi('./pdf/CV.pdf')
+#     portfolio_analysi("./Portfolio_채병주_0522.pdf")
+#     print("portfolio_analysis end")

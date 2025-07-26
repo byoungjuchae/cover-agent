@@ -4,6 +4,8 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.documents import Document
 from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_milvus import Milvus
+from langchain_core.runnables import RunnablePassthrough
 from glob import glob 
 import os
 import json
@@ -11,8 +13,6 @@ from uuid import uuid4
 
 
 
-
-    
 
 def job_post():
     jobpost = glob(os.path.join("./jobposting",'*.json'))

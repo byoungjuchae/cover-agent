@@ -1,45 +1,38 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.prompts import ChatPromptTemplate
-from langgraph.checkpoint.memory import InMemorySaver
-from langgraph.store.memory import InMemoryStore
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import ChatOpenAI
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
-from langgraph.graph import StateGraph, END
-from langchain_mcp_adapters.client import MultiServerMCPClient
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.dirname(__file__))) 
-from portfolio_analysis.porfolio import portfolio_analysi
+from tools_.portfolio_analysis.porfolio import portfolio_analysi
 from dotenv import load_dotenv
 from pydantic import BaseModel
 import asyncio
 import os
 import uuid
 import streamlit as st
-from cover.cover_agent import coverwriter
-
+from tools_.cover.cover_agent import coverwriter
+from tools_.make_docx.docx_save import save_docx
 from fastapi import FastAPI, UploadFile, File, Request
 from pydantic import BaseModel
 import requests
 import shutil
-from fastapi import FastAPI, UploadFile, File, Form
-import requests
 import json
-
+from pymongo import MongoClient
 
 
 app = FastAPI()
+client = MongoClient("mongodb://localhost:27017/")
+
+db = client["mydb"]
+users = db["users"]
+
+
 
 load_dotenv()
 
-
-
+LANGCHAIN_TRACING_V2 = 'false'
+LANGCHAIN_ENDPOINT = os.getenv("LANGCHAIN_ENDPOINT")
+LANGCHAIN_PROJECT = os.getenv("LANGCHAIN_PROJECT")
+LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY")
 INSERT_TOKEN = os.getenv("INSERT_TOKEN")
 OPENAI_KEY = os.getenv("OPENAI_KEY")
 
@@ -53,15 +46,6 @@ class State(BaseModel):
     result : str
     score : str
 
-llm = ChatOpenAI(model="gpt-4.1-mini", openai_api_key=OPENAI_KEY,temperature=0.7)
-
-
-docs = PyPDFLoader('./pdf/CV.pdf').load()
-
-def make_config():
-    return {"configurable": {"thread_id": str(uuid.uuid4())}}
-
-
 class JobSearchConfig(BaseModel):
     job: str
     start_day: str
@@ -70,6 +54,11 @@ class JobSearchConfig(BaseModel):
     end_day: str
     end_month: str
     end_year: str
+    
+class OuterModel(BaseModel):
+    request: str
+    jobdes: str
+    name : str
 
 
 
@@ -91,9 +80,6 @@ def set_job_config(config: JobSearchConfig):
     return {"message": "Job configuration updated successfully."}
 
 
-
-UPLOAD_DIR = './pdf'
-os.makedirs(UPLOAD_DIR,exist_ok=True)
 @app.post('/job_posting')
 def get_url():
     global start_index, current_config 
@@ -116,39 +102,39 @@ def get_url():
     return docs
 
 
-@app.post('/pdf')
-async def pdf_load(pdf_file: UploadFile = File(...)):
-
-    save_path = f"./uploaded_files/{pdf_file.filename}"
+@app.post('/CV_pdf')
+async def CV_load(pdf_file: UploadFile = File(...)):
+    UPLOAD_DIR = './uploaded_files_CV'
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    save_path = f"./uploaded_files_CV/{pdf_file.filename}"
 
 
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
-
+    #### pdf 저장 in db
     with open(save_path, "wb") as buffer:
         content = await pdf_file.read()  
         buffer.write(content)
 
     return {"message": f"파일이 저장되었습니다: {save_path}"}
 
-class OuterModel(BaseModel):
-    request: str
-    jobdes: str
-    name : str
+@app.post('/portfolio_pdf')
+async def portfolio_load(pdf_file: UploadFile = File(...)):
+    
+    UPLOAD_DIR = './uploaded_files_portfolio'
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    save_path = f"./uploaded_files_portfolio/{pdf_file.filename}"
 
 
-
-async def pdf(pdf_file: UploadFile = File(...)):
-
-    file_path = os.path.join(UPLOAD_DIR, pdf_file.filename)
-
-    with open(file_path, "wb") as buffer:
-        content = await pdf_file.read()
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    #### pdf 저장 in db
+    with open(save_path, "wb") as buffer:
+        content = await pdf_file.read()  
         buffer.write(content)
 
-    docs = PyPDFLoader(file_path).load()
+    return {"message": f"파일이 저장되었습니다: {save_path}"}
 
-    return {"message": "PDF 처리 완료", "num_pages": len(docs)}
 
+llm = ChatOpenAI(model="gpt-4.1-mini", openai_api_key=OPENAI_KEY,temperature=0.7)
 @app.post('/chat', description="Chat endpoint for cover letter AI agent")
 async def chat(data:OuterModel):
     """
@@ -158,18 +144,18 @@ async def chat(data:OuterModel):
     config = {"configurable": {"thread_id": "53"}}
     agents = create_react_agent(
         llm,
-        tools=[coverwriter],
+        tools=[coverwriter,portfolio_analysi,save_docx],
         prompt=(
             "You're a helpful assistant designed to use tools effectively. "
             "When a question comes in, don't ask for permission—just use the tool. "
             "If the user wants assistance crafting a cover letter, execute 'coverwriter'."
-            "If the user adds the portfolio file, execute 'portfolio_an'"
+            "If the user adds the portfolio file, execute 'portfolio_analysis'."
+            "If the user wants to save the cover letter as a docx file, execute 'save_docx'."
             "For complex tasks, break them down and use tools step by step."
             
         )
     )
-    
-    user_input = data.request + 'Here is the Job description:' + data.jobdes
+    user_input = data['request'] +"JD : you are a expert in AI"
 
     response_text = ""
     chunks = []
@@ -187,8 +173,8 @@ async def chat(data:OuterModel):
 
 
 
-# if __name__ == '__main__':
-#     files = {"request": "write a cover letter"}
+if __name__ == '__main__':
+    files = {"request": "write a coverletter and save the file as docx name of cover_letter"}
                            
 
-#     asyncio.run(chat(files))
+    asyncio.run(chat(files))
