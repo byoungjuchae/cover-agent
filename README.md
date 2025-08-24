@@ -6,6 +6,12 @@ tool :
 - portfolio_analysis : tools_/portfolio_analysis : analyze the portfolio. (x)
 - recommendation : tools_/recommendation : recommend the Job based on the matching rate. 
 
+1. JD_analysis -> CV writing
+2. CV analysis -> CV_writing
+2. portfolio_analysis 
+3. recommendation (n/ JD analysis, CV analysis)
+
+split each anaylsis into the agent and combine all with swarm.
 
 # cover-agent
 If you start frontend 
